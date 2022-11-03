@@ -1,0 +1,59 @@
+{% extends 'core/base.html'%}
+{% block title %}Home {% endblock title %}
+{% block main_contant %}
+<section class="container">
+    <div class="row justify-content-around  text-center text-white mt-5">
+        <div class="col-sm-8  ">
+            <h3>Employee Detail In Python Django</h3>
+        </div>
+    </div>
+        <div class="row justify-content-around mt-3">
+            <div class="cols-m-8 text-right">
+                    <a href="{% url 'add_employee'%}" class='btn btn-primary float-end'>Add</a>
+            </div>
+        </div>
+        <div class="row justify-content-around  text-center text-white mt-1">
+             <div class="col-sm-8 ">
+
+                    <table class="table table-dark table-hover">
+                          <thead>
+                                 <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col"> f_name</th>
+                                  <th scope="col">l_name</th>
+                                  <th scope="col">phone</th>
+                                  <th scope="col"> email</th>
+                                     <th scope="col">Action</th>
+                                 </tr>
+                          </thead>
+                          <tbody>
+                            {% for emp in empdata %}
+                              <tr>
+                                  <th scope="row">{{forloop.counter}}</th>
+                                  <td>{{emp.f_name}} </td>
+                                  <td>{{emp.l_name}}</td>
+                                  <td>{{emp.phone}}</td>
+                                 <td>{{emp.email}}</td>
+                                  <td class="aline-inline">
+                                      <table>
+                                          <tr>
+                                              <td>
+
+                                              </td>
+                                          </tr>
+                                      </table>
+                                      <form action="{% url 'delete_employee' %}" method="POST">
+                                      {% csrf_token %}
+                                      <input type="hidden" name="id" value="{{emp.id}}">
+                                      <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+                                      </form>
+                                  </td>
+                              </tr>
+                            {% endfor %}
+                          </tbody>
+                    </table>
+             </div>
+        </div>
+
+</section>
+{% endblock main_contant %}
